@@ -54,7 +54,6 @@ class _MealsScreenState extends State<MealsScreen> {
               duration: displayedMeals[index].duration,
               id: displayedMeals[index].id,
               color: categoryColor,
-              removeItem: _removeMeal,
             );
           },
           itemCount: displayedMeals.length,

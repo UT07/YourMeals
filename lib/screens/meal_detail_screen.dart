@@ -3,12 +3,14 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-details';
-
+  final Function toggleFavortie;
+  final Function isFavorite;
+  MealDetailScreen(this.toggleFavortie, this.isFavorite);
   @override
   Widget build(BuildContext context) {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, Object>;
-    final String mealId = routeArgs['id'];
+    final String mealId = routeArgs['id'].toString();
     final Color appBarColor = routeArgs['color'];
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => mealId == meal.id);
     final PreferredSizeWidget appBar = AppBar(
@@ -104,12 +106,10 @@ class MealDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: appBarColor,
-        onPressed: () {
-          Navigator.of(context).pop(mealId);
-        },
+        onPressed: () => toggleFavortie(mealId),
         child: Icon(
-          Icons.delete,
-          color: Colors.white,
+          isFavorite(mealId) ? Icons.star : Icons.star_border,
+          // color: Colors.white,
         ),
       ),
     );
